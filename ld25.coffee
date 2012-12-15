@@ -41,28 +41,17 @@ deep_array_copy = (a) ->
     ret.push(i[..])
   ret
 
+make_damage_array = (a) ->
+  ret = new Array
+  for i in a
+    ret.push((j*500 for j in i))
+  ret
+
 class City
   constructor: (level) ->
     @level = deep_array_copy(level)
-    #@buildings = [
-    #  [10, 10, 8, 8],
-    #  [10, 20, 8, 8],
-    #  [10, 30, 8, 8],
-    #  [10, 40, 8, 8],
-    #  [20, 10, 8, 8],
-    #  [20, 20, 8, 8],
-    #  [20, 30, 8, 8],
-    #  [20, 40, 8, 8],
-    #  [30, 10, 8, 8],
-    #  [30, 20, 8, 8],
-    #  [30, 30, 8, 8],
-    #  [30, 40, 8, 8],
-    #  [40, 10, 8, 8],
-    #  [40, 20, 8, 8],
-    #  [40, 30, 8, 8],
-    #  [10, 50, 28, 8],
-    #  [40, 40, 16, 16],
-    #]
+    @damage = make_damage_array(level)
+    console.log(@damage)
 
   draw: () ->
     ctx.fillStyle = "black"
@@ -70,9 +59,11 @@ class City
       for col, x in row
         if col == 1
           ctx.fillRect(x * BS, y * BS, BS, BS)
-    #for b in @buildings
-    #  [x, y, w, h] = b
-    #  ctx.fillRect(x * 4, y * 4, w * 4, h * 4)
+
+  take_damage: (x, y, amount) ->
+    @damage[y][x] -= amount
+    if @damage[y][x] < 0
+      @level[y][x] = 0
 
 city = new City(level)
 
@@ -80,8 +71,10 @@ class Unit
   constructor: (@color, @x, @y) ->
     @health = @max_health = 50
     @target = null
-    @velocity = 5
+    @velocity = 15
     @dir = {x: 0, y: 0}
+    @attack_range = 0
+    @strength = 10
 
   draw: () ->
     ctx.fillStyle = @color
@@ -101,15 +94,32 @@ class Unit
             target_x = x
             target_y = y
             min = distance
-    @target = {x: target_x * BS + BS, y: target_y * BS + BS}
+    @target = {
+      x: target_x * BS + BS,
+      y: target_y * BS + BS,
+      rx: target_x,
+      ry: target_y
+    }
     rem_x = @target.x - @x
     rem_y = @target.y - @y
     mag = Math.sqrt(rem_x * rem_x + rem_y * rem_y)
     @dir = {x: rem_x / mag, y: rem_y / mag}
 
+  _can_attack_target: () ->
+    rem_x = @target.x - @x
+    rem_y = @target.y - @y
+    dist_squared = rem_x * rem_x + rem_y * rem_y
+    return dist_squared < @attack_range
+
+  _attack: (city) ->
+    city.take_damage(@target.rx, @target.ry, @strength)
+
   move: (city) ->
-    if @target is null
+    if @target is null or city.level[@target.ry][@target.rx] == 0
       @_find_target(city)
+    if @_can_attack_target()
+      @dir.x = @dir.y = 0
+      @_attack(city)
     if within(@x, @target.x, @dir.x * @velocity)
       @x = @target.x
       @dir.x = 0
@@ -135,6 +145,7 @@ class Werewolf extends Unit
 class Skeleton extends Unit
   constructor: (x, y) ->
     super('#bbb', x, y)
+    @attack_range = 1000
 
 rand = (a, b) ->
   Math.floor(Math.random() * (b - a) + a)
