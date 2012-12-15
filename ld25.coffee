@@ -52,6 +52,14 @@ class Unit
     ctx.fillStyle = @color
     ctx.fillRect(@x, @y, 4, 4)
 
+  move: () ->
+    @x--
+    r = Math.random()
+    if r < 0.1
+      @y--
+    else if r > 0.9
+      @y++
+
 class Orc extends Unit
   constructor: (x, y) ->
     super('#6b6', x, y)
@@ -85,6 +93,9 @@ class Army
 
   draw: () ->
     u.draw() for u in @units
+
+  move: () ->
+    u.move() for u in @units
 
 army = new Army
 army.orcs = 5
@@ -182,10 +193,8 @@ draw = () ->
     when STATE_BATTLE then draw_battle()
     else console.log("unknown state=%d", state)
 
-move_army = () ->
-
 update_battle = () ->
-  move_army()
+  army.move()
 
 update = () ->
   switch state
