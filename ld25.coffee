@@ -20,17 +20,40 @@ class Army
     @werewolves = 0
     @skeletons = 0
 
+army = new Army
+
 get_event_xy = (e) ->
   x = e.pageX - canvas.offsetLeft - canvas.clientLeft
   y = e.pageY - canvas.offsetTop - canvas.clientTop
   [x, y]
 
-on_mouse = (e) ->
-  [x, y] = get_event_xy(e)
-  console.log("x=%d, y=%d", x, y)
+handle_mouse_overworld = (x, y) ->
   if 400 < x <= 600 && 40 < y <= 80
     console.log("state change to recruit")
     state = STATE_RECRUIT
+
+handle_mouse_recruit = (x, y) ->
+  if 50 < x <= 200 && 50 < y <= 200
+    day++
+    army.orcs++
+    state = STATE_OVERWORLD
+  if 250 < x <= 400 && 50 < y <= 200
+    day++
+    army.werewolves++
+    state = STATE_OVERWORLD
+  if 450 < x <= 600 && 50 < y <= 200
+    day++
+    army.skeletons++
+    state = STATE_OVERWORLD
+  console.log("increased army => ", army)
+
+on_mouse = (e) ->
+  [x, y] = get_event_xy(e)
+  console.log("x=%d, y=%d", x, y)
+  switch state
+    when STATE_OVERWORLD then handle_mouse_overworld(x, y)
+    when STATE_RECRUIT then handle_mouse_recruit(x, y)
+    else console.log("unknown state=%d", state)
   return
 
 on_key = (e) ->
@@ -51,7 +74,10 @@ draw_overworld = () ->
   ctx.fillText("Status", 420, 190)
   ctx.fillText("Go", 420, 250)
   ctx.fillStyle = "black"
-  ctx.fillText("Day:   1", 420, 450)
+  ctx.fillText("Day: " + day, 420, 450)
+  ctx.fillText("Orcs: " + army.orcs, 420, 350)
+  ctx.fillText("Werewolves: " + army.werewolves, 420, 380)
+  ctx.fillText("Skeletons: " + army.skeletons, 420, 410)
 
 draw_recruit_box = (str, pos) ->
   ctx.fillStyle = "black"
