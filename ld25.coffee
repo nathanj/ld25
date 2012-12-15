@@ -1,5 +1,6 @@
 WIDTH = 640
 HEIGHT = 480
+BS = 8
 
 canvas = null
 ctx = null
@@ -14,51 +15,114 @@ STATE_BATTLE = 4
 state = STATE_BATTLE
 day = 1
 
+level = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+deep_array_copy = (a) ->
+  ret = new Array
+  for i in a
+    ret.push(i[..])
+  ret
+
 class City
-  constructor: () ->
-    @buildings = [
-      [10, 10, 8, 8],
-      [10, 20, 8, 8],
-      [10, 30, 8, 8],
-      [10, 40, 8, 8],
-      [20, 10, 8, 8],
-      [20, 20, 8, 8],
-      [20, 30, 8, 8],
-      [20, 40, 8, 8],
-      [30, 10, 8, 8],
-      [30, 20, 8, 8],
-      [30, 30, 8, 8],
-      [30, 40, 8, 8],
-      [40, 10, 8, 8],
-      [40, 20, 8, 8],
-      [40, 30, 8, 8],
-      [10, 50, 28, 8],
-      [40, 40, 16, 16],
-    ]
+  constructor: (level) ->
+    @level = deep_array_copy(level)
+    #@buildings = [
+    #  [10, 10, 8, 8],
+    #  [10, 20, 8, 8],
+    #  [10, 30, 8, 8],
+    #  [10, 40, 8, 8],
+    #  [20, 10, 8, 8],
+    #  [20, 20, 8, 8],
+    #  [20, 30, 8, 8],
+    #  [20, 40, 8, 8],
+    #  [30, 10, 8, 8],
+    #  [30, 20, 8, 8],
+    #  [30, 30, 8, 8],
+    #  [30, 40, 8, 8],
+    #  [40, 10, 8, 8],
+    #  [40, 20, 8, 8],
+    #  [40, 30, 8, 8],
+    #  [10, 50, 28, 8],
+    #  [40, 40, 16, 16],
+    #]
 
   draw: () ->
     ctx.fillStyle = "black"
-    for b in @buildings
-      [x, y, w, h] = b
-      ctx.fillRect(x * 4, y * 4, w * 4, h * 4)
+    for row, y in @level
+      for col, x in row
+        if col == 1
+          ctx.fillRect(x * BS, y * BS, BS, BS)
+    #for b in @buildings
+    #  [x, y, w, h] = b
+    #  ctx.fillRect(x * 4, y * 4, w * 4, h * 4)
 
-city = new City
+city = new City(level)
 
 class Unit
   constructor: (@color, @x, @y) ->
     @health = @max_health = 50
+    @target = null
+    @velocity = 5
+    @dir = {x: 0, y: 0}
 
   draw: () ->
     ctx.fillStyle = @color
     ctx.fillRect(@x, @y, 4, 4)
 
-  move: () ->
-    @x--
-    r = Math.random()
-    if r < 0.1
-      @y--
-    else if r > 0.9
-      @y++
+  _find_target: (city) ->
+    min = 999999
+    target_x = -1
+    target_y = -1
+    for row, y in city.level
+      for col, x in row
+        if col == 1
+          tmp_x = x * BS
+          tmp_y = y * BS
+          distance = Math.pow(@x - tmp_x, 2) + Math.pow(@y - tmp_y, 2)
+          if distance < min
+            target_x = x
+            target_y = y
+            min = distance
+    @target = {x: target_x * BS + BS, y: target_y * BS + BS}
+    rem_x = @target.x - @x
+    rem_y = @target.y - @y
+    mag = Math.sqrt(rem_x * rem_x + rem_y * rem_y)
+    @dir = {x: rem_x / mag, y: rem_y / mag}
+
+  move: (city) ->
+    if @target is null
+      @_find_target(city)
+    if within(@x, @target.x, @dir.x * @velocity)
+      @x = @target.x
+      @dir.x = 0
+    else
+      @x += @dir.x * @velocity
+    if within(@y, @target.y, @dir.y * @velocity)
+      @y = @target.y
+      @dir.y = 0
+    else
+      @y += @dir.y * @velocity
+
+within = (pos, target_pos, velocity) ->
+  return (Math.abs(target_pos - pos) < Math.abs(velocity))
 
 class Orc extends Unit
   constructor: (x, y) ->
@@ -94,8 +158,8 @@ class Army
   draw: () ->
     u.draw() for u in @units
 
-  move: () ->
-    u.move() for u in @units
+  move: (city) ->
+    u.move(city) for u in @units
 
 army = new Army
 army.orcs = 5
@@ -180,9 +244,12 @@ draw_recruit = () ->
   draw_recruit_box("Skeletons", 2)
 
 draw_battle = () ->
+  ctx.fillStyle = "#bfb"
+  ctx.fillRect(0, 0, WIDTH, HEIGHT)
   city.draw()
   army.draw()
   ctx.font = "bold 25px sans-serif"
+  ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
 
 draw = () ->
@@ -194,7 +261,7 @@ draw = () ->
     else console.log("unknown state=%d", state)
 
 update_battle = () ->
-  army.move()
+  army.move(city)
 
 update = () ->
   switch state
