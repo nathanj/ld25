@@ -32,11 +32,11 @@ level = [
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
-  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
@@ -113,7 +113,7 @@ class Unit
   draw: () ->
     ctx.fillStyle = @color
     ctx.fillRect(@x, @y, 4, 4)
-    ctx.strokeStyle = 'black'
+    ctx.strokeStyle = '#222'
     ctx.strokeRect(@x, @y, 4, 4)
 
   _find_target: (city) ->
@@ -148,6 +148,7 @@ class Unit
 
   _attack: (city) ->
     city.take_damage(@target.rx, @target.ry, @strength)
+    particles.push(new Debris(@target.x, @target.y))
     @attack_cooldown_remaining = @attack_cooldown
 
   move: (city) ->
@@ -240,8 +241,8 @@ rand = (a, b) ->
 class Army
   constructor: () ->
     @orcs = 5
-    @werewolves = 5
-    @skeletons = 5
+    @werewolves = 0
+    @skeletons = 0
     @cyclops = 0
     @dragons = 0
 
@@ -342,16 +343,16 @@ handle_mouse_recruit = (x, y) ->
     army.orcs += 5
   if 250 < x <= 400 && 50 < y <= 200
     day++
-    army.werewolves += 5
+    army.skeletons += 5
   if 450 < x <= 600 && 50 < y <= 200
     day++
-    army.skeletons += 5
+    army.werewolves += 3
   if 150 < x <= 300 && 220 < y <= 370
-    day++
-    army.cyclops += 5
+    day += 1
+    army.cyclops += 1
   if 350 < x <= 500 && 220 < y <= 370
-    day++
-    army.dragons += 5
+    day += 3
+    army.dragons += 1
   if 500 < x <= 600 && 400 < y <= 450
     state = STATE_OVERWORLD
   console.log("increased army => ", army)
@@ -362,6 +363,16 @@ handle_mouse_battle_over = (x, y) ->
   if sx < x < sx + 150 and sy < y < sy + 150
     state = STATE_OVERWORLD
 
+handle_mouse_game_over = (x, y) ->
+  sx = WIDTH / 2 - 75
+  sy = HEIGHT / 2 - 75
+  if sx < x < sx + 150 and sy < y < sy + 150
+    army = new Army
+    day = 1
+    hours = 0
+    cities_destroyed = 0
+    state = STATE_OVERWORLD
+
 on_mouse = (e) ->
   [x, y] = get_event_xy(e)
   console.log("x=%d, y=%d", x, y)
@@ -369,6 +380,7 @@ on_mouse = (e) ->
     when STATE_OVERWORLD then handle_mouse_overworld(x, y)
     when STATE_RECRUIT then handle_mouse_recruit(x, y)
     when STATE_BATTLE_OVER then handle_mouse_battle_over(x, y)
+    when STATE_GAME_OVER then handle_mouse_game_over(x, y)
     else console.log("unknown state=%d", state)
   return
 
@@ -397,7 +409,7 @@ draw_overworld = () ->
   ctx.fillText("Cyclops: " + army.cyclops, 420, 390)
   ctx.fillText("Dragons: " + army.dragons, 420, 420)
 
-draw_recruit_box = (str, pos) ->
+draw_recruit_box = (str, pos, days) ->
   switch pos
     when 0, 1, 2 then [x, y] = [200 * pos, 0]
     else [x, y] = [100 + 200 * (pos - 3), 170]
@@ -406,20 +418,23 @@ draw_recruit_box = (str, pos) ->
   ctx.fillStyle = "white"
   ctx.fillText("Recruit", 120 + x, 70 + y)
   ctx.fillText(str, 120 + x, 120 + y)
+  ctx.fillText("(#{days} days)", 120 + x, 170 + y)
 
 draw_recruit = () ->
   ctx.font = "bold 20px sans-serif"
   ctx.textBaseline = "top"
   ctx.textAlign = "center"
-  draw_recruit_box("Orcs", 0)
-  draw_recruit_box("Werewolves", 1)
-  draw_recruit_box("Skeletons", 2)
-  draw_recruit_box("Cyclops", 3)
-  draw_recruit_box("Dragon", 4)
+  draw_recruit_box("5 Orcs", 0, 1)
+  draw_recruit_box("5 Skeletons", 1, 1)
+  draw_recruit_box("3 Werewolves", 2, 1)
+  draw_recruit_box("Cyclops", 3, 1)
+  draw_recruit_box("Dragon", 4, 3)
   ctx.fillStyle = "black"
   ctx.fillRect(500, 400, 100, 50)
   ctx.fillStyle = "white"
   ctx.fillText("Back", 550, 410)
+  ctx.fillStyle = "black"
+  ctx.fillText("Day: " + day, 420, 450)
 
 draw_battle = () ->
   ctx.fillStyle = "#bfb"
@@ -430,6 +445,10 @@ draw_battle = () ->
   ctx.font = "bold 25px sans-serif"
   ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
+  ctx.fillStyle = "#6a6"
+  ctx.fillRect(525, 430, hours, 20)
+  ctx.strokeStyle = "black"
+  ctx.strokeRect(525, 430, 100, 20)
 
 draw_battle_over = () ->
   draw_battle()
@@ -475,10 +494,11 @@ draw_game_over = () ->
   ctx.fillText("It took you " + day + " days! Not bad!", WIDTH/2, 150)
   ctx.strokeStyle = "black"
   ctx.strokeText("It took you " + day + " days! Not bad!", WIDTH/2, 150)
+  ctx.font = "bold 20px sans-serif"
   ctx.fillStyle = "black"
   ctx.fillRect(WIDTH / 2 - 75, HEIGHT / 2 - 75, 150, 150)
   ctx.fillStyle = "white"
-  ctx.fillText("OK", WIDTH / 2, HEIGHT / 2)
+  ctx.fillText("Play Again!", WIDTH / 2, HEIGHT / 2)
 
 draw = () ->
   ctx.clearRect(0, 0, WIDTH, HEIGHT)
@@ -502,7 +522,7 @@ update_battle = () ->
     console.log("battle over!")
     cities_destroyed++
     state = STATE_BATTLE_OVER
-    if cities_destroyed == 2
+    if cities_destroyed == 5
       state = STATE_GAME_OVER
 
 update = () ->
