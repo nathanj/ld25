@@ -20,6 +20,7 @@ state = STATE_OVERWORLD
 day = 1
 hours = 0
 cities_destroyed = 0
+gold = 5000
 
 level = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -92,12 +93,13 @@ class City
   take_damage: (x, y, amount) ->
     if @damage[y][x] > 0
       @damage[y][x] -= amount
-      if @damage[y][x] < 0
+      if @damage[y][x] <= 0
         @level[y][x] = rand(-4, 1)
         @num_buildings_left--
         particles.push(new Debris(x * BS, y * BS))
         particles.push(new Debris(x * BS, y * BS))
         particles.push(new Debris(x * BS, y * BS))
+        gold++
 
 class Unit
   constructor: (@color, @x, @y) ->
@@ -186,7 +188,7 @@ class Werewolf extends Unit
   constructor: (x, y) ->
     super('#66b', x, y)
     @strength = 60
-    @velocity = 2
+    @velocity = 4
     @attack_cooldown = 3
 
 class Skeleton extends Unit
@@ -217,7 +219,7 @@ class Dragon extends Unit
   constructor: (x, y) ->
     super('#c33', x, y)
     @velocity = 15
-    @strength = 300
+    @strength = 500
     @attack_cooldown = 10
 
   _attack: (city) ->
@@ -240,7 +242,7 @@ rand = (a, b) ->
 
 class Army
   constructor: () ->
-    @orcs = 5
+    @orcs = 0
     @werewolves = 0
     @skeletons = 0
     @cyclops = 0
@@ -259,6 +261,33 @@ class Army
       @units.push(new Cyclops(rand(x, x + w), rand(y, y + h)))
     for i in [0...@dragons]
       @units.push(new Dragon(rand(x, x + w), rand(y, y + h)))
+
+  has_a_unit: () ->
+    @units.length > 0
+
+  add_unit: (unit, amt) ->
+    [x, y, w, h] = [500, 100, 50, 50]
+    switch unit
+      when "orc"
+        @orcs += amt
+        for i in [0...amt]
+          @units.push(new Orc(rand(x, x + w), rand(y, y + h)))
+      when "werewolf"
+        @werewolves += amt
+        for i in [0...amt]
+          @units.push(new Werewolf(rand(x, x + w), rand(y, y + h)))
+      when "skeleton"
+        @skeletons += amt
+        for i in [0...amt]
+          @units.push(new Skeleton(rand(x, x + w), rand(y, y + h)))
+      when "cyclops"
+        @cyclops += amt
+        for i in [0...amt]
+          @units.push(new Cyclops(rand(x, x + w), rand(y, y + h)))
+      when "dragon"
+        @dragons += amt
+        for i in [0...amt]
+          @units.push(new Dragon(rand(x, x + w), rand(y, y + h)))
 
   draw: () ->
     u.draw() for u in @units
@@ -371,7 +400,25 @@ handle_mouse_game_over = (x, y) ->
     day = 1
     hours = 0
     cities_destroyed = 0
+    gold = 50
     state = STATE_OVERWORLD
+
+handle_mouse_battle = (x, y) ->
+  if 20 < x < 20 + 50 and 400 < y < 450 and gold >= 10
+    army.add_unit('orc', 1)
+    gold -= 10
+  if 90 < x < 90 + 50 and 400 < y < 450 and gold >= 10
+    army.add_unit('skeleton', 1)
+    gold -= 10
+  if 160 < x < 160 + 50 and 400 < y < 450 and gold >= 15
+    army.add_unit('werewolf', 1)
+    gold -= 15
+  if 230 < x < 230 + 50 and 400 < y < 450 and gold >= 40
+    army.add_unit('cyclops', 1)
+    gold -= 40
+  if 300 < x < 300 + 50 and 400 < y < 450 and gold >= 100
+    army.add_unit('dragon', 1)
+    gold -= 100
 
 on_mouse = (e) ->
   [x, y] = get_event_xy(e)
@@ -379,6 +426,7 @@ on_mouse = (e) ->
   switch state
     when STATE_OVERWORLD then handle_mouse_overworld(x, y)
     when STATE_RECRUIT then handle_mouse_recruit(x, y)
+    when STATE_BATTLE then handle_mouse_battle(x, y)
     when STATE_BATTLE_OVER then handle_mouse_battle_over(x, y)
     when STATE_GAME_OVER then handle_mouse_game_over(x, y)
     else console.log("unknown state=%d", state)
@@ -444,11 +492,23 @@ draw_battle = () ->
   p.draw() for p in particles
   ctx.font = "bold 25px sans-serif"
   ctx.fillStyle = "black"
-  ctx.fillText("Day: " + day, 420, 450)
+  ctx.fillText("Day: " + day, 420, 400)
+  ctx.fillText("Gold: " + gold, 420, 430)
   ctx.fillStyle = "#6a6"
-  ctx.fillRect(525, 430, hours, 20)
+  ctx.fillRect(525, 380, hours * 2, 20)
   ctx.strokeStyle = "black"
-  ctx.strokeRect(525, 430, 100, 20)
+  ctx.strokeRect(525, 380, 100, 20)
+
+  ctx.fillStyle = if gold >= 10 then "#a66" else "#888"
+  ctx.fillRect(20, 400, 50, 50)
+  ctx.fillStyle = if gold >= 10 then "#a66" else "#888"
+  ctx.fillRect(90, 400, 50, 50)
+  ctx.fillStyle = if gold >= 15 then "#a66" else "#888"
+  ctx.fillRect(160, 400, 50, 50)
+  ctx.fillStyle = if gold >= 40 then "#a66" else "#888"
+  ctx.fillRect(230, 400, 50, 50)
+  ctx.fillStyle = if gold >= 100 then "#a66" else "#888"
+  ctx.fillRect(300, 400, 50, 50)
 
 draw_battle_over = () ->
   draw_battle()
@@ -514,10 +574,11 @@ update_battle = () ->
   army.move(city)
   p.move() for p in particles
   particles = particles.filter((p) -> !p.done)
-  hours++
-  if hours == 100
-    day++
-    hours = 0
+  if army.has_a_unit()
+    hours++
+    if hours == 50
+      day++
+      hours = 0
   if city.num_buildings_left == 0
     console.log("battle over!")
     cities_destroyed++
