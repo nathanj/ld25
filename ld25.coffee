@@ -14,10 +14,12 @@ STATE_RECRUIT = 2
 STATE_TRAIN = 3
 STATE_BATTLE = 4
 STATE_BATTLE_OVER = 5
+STATE_GAME_OVER = 6
 
 state = STATE_OVERWORLD
 day = 1
 hours = 0
+cities_destroyed = 0
 
 level = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -72,13 +74,13 @@ class City
       for col, x in row
         switch col
           when 1
-            ctx.fillStyle = "black"
+            ctx.fillStyle = "#111"
             ctx.fillRect(x * BS, y * BS, BS, BS)
-          when -1
-            ctx.fillStyle = "gray"
+          when -2, -3
+            ctx.fillStyle = "#999"
             ctx.fillRect(x * BS, y * BS, BS, BS)
-          when -2
-            ctx.fillStyle = "red"
+          when -4
+            ctx.fillStyle = "#a33"
             ctx.fillRect(x * BS, y * BS, BS, BS)
 
   get_buildings_left: () ->
@@ -91,7 +93,7 @@ class City
     if @damage[y][x] > 0
       @damage[y][x] -= amount
       if @damage[y][x] < 0
-        @level[y][x] = rand(-2, 1)
+        @level[y][x] = rand(-4, 1)
         @num_buildings_left--
         particles.push(new Debris(x * BS, y * BS))
         particles.push(new Debris(x * BS, y * BS))
@@ -111,6 +113,8 @@ class Unit
   draw: () ->
     ctx.fillStyle = @color
     ctx.fillRect(@x, @y, 4, 4)
+    ctx.strokeStyle = 'black'
+    ctx.strokeRect(@x, @y, 4, 4)
 
   _find_target: (city) ->
     min = 999999
@@ -205,6 +209,8 @@ class Cyclops extends Unit
   draw: () ->
     ctx.fillStyle = @color
     ctx.fillRect(@x, @y, 8, 8)
+    ctx.strokeStyle = 'black'
+    ctx.strokeRect(@x, @y, 8, 8)
 
 class Dragon extends Unit
   constructor: (x, y) ->
@@ -224,7 +230,9 @@ class Dragon extends Unit
 
   draw: () ->
     ctx.fillStyle = @color
+    ctx.strokeStyle = 'black'
     ctx.fillRect(@x, @y, 8, 8)
+    ctx.strokeRect(@x, @y, 8, 8)
 
 rand = (a, b) ->
   Math.floor(Math.random() * (b - a) + a)
@@ -332,22 +340,19 @@ handle_mouse_recruit = (x, y) ->
   if 50 < x <= 200 && 50 < y <= 200
     day++
     army.orcs += 5
-    state = STATE_OVERWORLD
   if 250 < x <= 400 && 50 < y <= 200
     day++
     army.werewolves += 5
-    state = STATE_OVERWORLD
   if 450 < x <= 600 && 50 < y <= 200
     day++
     army.skeletons += 5
-    state = STATE_OVERWORLD
   if 150 < x <= 300 && 220 < y <= 370
     day++
     army.cyclops += 5
-    state = STATE_OVERWORLD
   if 350 < x <= 500 && 220 < y <= 370
     day++
     army.dragons += 5
+  if 500 < x <= 600 && 400 < y <= 450
     state = STATE_OVERWORLD
   console.log("increased army => ", army)
 
@@ -411,6 +416,10 @@ draw_recruit = () ->
   draw_recruit_box("Skeletons", 2)
   draw_recruit_box("Cyclops", 3)
   draw_recruit_box("Dragon", 4)
+  ctx.fillStyle = "black"
+  ctx.fillRect(500, 400, 100, 50)
+  ctx.fillStyle = "white"
+  ctx.fillText("Back", 550, 410)
 
 draw_battle = () ->
   ctx.fillStyle = "#bfb"
@@ -424,11 +433,48 @@ draw_battle = () ->
 
 draw_battle_over = () ->
   draw_battle()
-  ctx.font = "bold 25px sans-serif"
+  ctx.fillStyle = "#000"
+  ctx.globalAlpha = 0.7
+  ctx.fillRect(0, 0, WIDTH, HEIGHT)
+  ctx.globalAlpha = 1
+  ctx.font = "bold 50px sans-serif"
   ctx.textAlign = "center"
   ctx.textBaseline = "alphabetic"
+  ctx.fillStyle = "white"
+  ctx.fillText("You destroyed the city!", WIDTH/2, 75)
+  ctx.strokeStyle = "black"
+  ctx.strokeText("You destroyed the city!", WIDTH/2, 75)
+  if cities_destroyed == 1
+    text = "1 city down, 4 to go!"
+  else
+    text = "" + cities_destroyed + " cities down, " + (5 - cities_destroyed) + " to go!"
+  ctx.fillStyle = "white"
+  ctx.fillText(text, WIDTH/2, 125)
+  ctx.strokeStyle = "black"
+  ctx.strokeText(text, WIDTH/2, 125)
   ctx.fillStyle = "black"
-  ctx.fillText("You destroyed the city!", WIDTH/2, 100)
+  ctx.fillRect(WIDTH / 2 - 75, HEIGHT / 2 - 75, 150, 150)
+  ctx.fillStyle = "white"
+  ctx.font = "bold 25px sans-serif"
+  ctx.fillText("OK", WIDTH / 2, HEIGHT / 2)
+
+draw_game_over = () ->
+  draw_battle()
+  ctx.fillStyle = "#000"
+  ctx.globalAlpha = 0.7
+  ctx.fillRect(0, 0, WIDTH, HEIGHT)
+  ctx.globalAlpha = 1
+  ctx.font = "bold 40px sans-serif"
+  ctx.textAlign = "center"
+  ctx.textBaseline = "alphabetic"
+  ctx.fillStyle = "white"
+  ctx.fillText("You have conquered the world!", WIDTH/2, 100)
+  ctx.strokeStyle = "black"
+  ctx.strokeText("You have conquered the world!", WIDTH/2, 100)
+  ctx.fillStyle = "white"
+  ctx.fillText("It took you " + day + " days! Not bad!", WIDTH/2, 150)
+  ctx.strokeStyle = "black"
+  ctx.strokeText("It took you " + day + " days! Not bad!", WIDTH/2, 150)
   ctx.fillStyle = "black"
   ctx.fillRect(WIDTH / 2 - 75, HEIGHT / 2 - 75, 150, 150)
   ctx.fillStyle = "white"
@@ -441,6 +487,7 @@ draw = () ->
     when STATE_RECRUIT then draw_recruit()
     when STATE_BATTLE then draw_battle()
     when STATE_BATTLE_OVER then draw_battle_over()
+    when STATE_GAME_OVER then draw_game_over()
     else console.log("unknown state=%d", state)
 
 update_battle = () ->
@@ -453,7 +500,10 @@ update_battle = () ->
     hours = 0
   if city.num_buildings_left == 0
     console.log("battle over!")
+    cities_destroyed++
     state = STATE_BATTLE_OVER
+    if cities_destroyed == 2
+      state = STATE_GAME_OVER
 
 update = () ->
   console.log(state)
