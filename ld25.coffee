@@ -11,8 +11,38 @@ STATE_RECRUIT = 2
 STATE_TRAIN = 3
 STATE_BATTLE = 4
 
-state = STATE_RECRUIT
+state = STATE_BATTLE
 day = 1
+
+class City
+  constructor: () ->
+    @buildings = [
+      [10, 10, 8, 8],
+      [10, 20, 8, 8],
+      [10, 30, 8, 8],
+      [10, 40, 8, 8],
+      [20, 10, 8, 8],
+      [20, 20, 8, 8],
+      [20, 30, 8, 8],
+      [20, 40, 8, 8],
+      [30, 10, 8, 8],
+      [30, 20, 8, 8],
+      [30, 30, 8, 8],
+      [30, 40, 8, 8],
+      [40, 10, 8, 8],
+      [40, 20, 8, 8],
+      [40, 30, 8, 8],
+      [10, 50, 28, 8],
+      [40, 40, 16, 16],
+    ]
+
+  draw: () ->
+    ctx.fillStyle = "black"
+    for b in @buildings
+      [x, y, w, h] = b
+      ctx.fillRect(x * 4, y * 4, w * 4, h * 4)
+
+city = new City
 
 class Army
   constructor: () ->
@@ -31,6 +61,10 @@ handle_mouse_overworld = (x, y) ->
   if 400 < x <= 600 && 40 < y <= 80
     console.log("state change to recruit")
     state = STATE_RECRUIT
+  if 400 < x <= 600 && 220 < y <= 260
+    console.log("state change to battle")
+    city = new City
+    state = STATE_BATTLE
 
 handle_mouse_recruit = (x, y) ->
   if 50 < x <= 200 && 50 < y <= 200
@@ -94,11 +128,17 @@ draw_recruit = () ->
   draw_recruit_box("Werewolves", 1)
   draw_recruit_box("Skeletons", 2)
 
+draw_battle = () ->
+  city.draw()
+  ctx.font = "bold 25px sans-serif"
+  ctx.fillText("Day: " + day, 420, 450)
+
 draw = () ->
   ctx.clearRect(0, 0, WIDTH, HEIGHT)
   switch state
     when STATE_OVERWORLD then draw_overworld()
     when STATE_RECRUIT then draw_recruit()
+    when STATE_BATTLE then draw_battle()
     else console.log("unknown state=%d", state)
 
 update = () ->
