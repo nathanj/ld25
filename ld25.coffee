@@ -44,13 +44,53 @@ class City
 
 city = new City
 
+class Unit
+  constructor: (@color, @x, @y) ->
+    @health = @max_health = 50
+
+  draw: () ->
+    ctx.fillStyle = @color
+    ctx.fillRect(@x, @y, 4, 4)
+
+class Orc extends Unit
+  constructor: (x, y) ->
+    super('#6b6', x, y)
+
+class Werewolf extends Unit
+  constructor: (x, y) ->
+    super('#66b', x, y)
+
+class Skeleton extends Unit
+  constructor: (x, y) ->
+    super('#bbb', x, y)
+
+rand = (a, b) ->
+  Math.floor(Math.random() * (b - a) + a)
+
 class Army
   constructor: () ->
     @orcs = 0
     @werewolves = 0
     @skeletons = 0
 
+  prepare_for_battle: () ->
+    [x, y, w, h] = [500, 100, 50, 50]
+    @units = new Array
+    for i in [0..@orcs]
+      @units.push(new Orc(rand(x, x + w), rand(y, y + h)))
+    for i in [0..@werewolves]
+      @units.push(new Werewolf(rand(x, x + w), rand(y, y + h)))
+    for i in [0..@skeletons]
+      @units.push(new Skeleton(rand(x, x + w), rand(y, y + h)))
+
+  draw: () ->
+    u.draw() for u in @units
+
 army = new Army
+army.orcs = 5
+army.werewolves = 5
+army.skeletons = 5
+army.prepare_for_battle()
 
 get_event_xy = (e) ->
   x = e.pageX - canvas.offsetLeft - canvas.clientLeft
@@ -130,6 +170,7 @@ draw_recruit = () ->
 
 draw_battle = () ->
   city.draw()
+  army.draw()
   ctx.font = "bold 25px sans-serif"
   ctx.fillText("Day: " + day, 420, 450)
 
@@ -141,7 +182,14 @@ draw = () ->
     when STATE_BATTLE then draw_battle()
     else console.log("unknown state=%d", state)
 
+move_army = () ->
+
+update_battle = () ->
+  move_army()
+
 update = () ->
+  switch state
+    when STATE_BATTLE then update_battle()
   draw()
 
 window.init = () ->
