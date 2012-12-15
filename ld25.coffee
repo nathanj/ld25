@@ -5,6 +5,8 @@ BS = 8
 canvas = null
 ctx = null
 interval = -1
+city = null
+particles = []
 
 # Game states
 STATE_OVERWORLD = 1
@@ -12,8 +14,9 @@ STATE_RECRUIT = 2
 STATE_TRAIN = 3
 STATE_BATTLE = 4
 
-state = STATE_BATTLE
+state = STATE_OVERWORLD
 day = 1
+hours = 0
 
 level = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -73,16 +76,16 @@ class City
     if @damage[y][x] < 0
       @level[y][x] = 0
 
-city = new City(level)
-
 class Unit
   constructor: (@color, @x, @y) ->
     @health = @max_health = 50
     @target = null
-    @velocity = 15
+    @velocity = 6
     @dir = {x: 0, y: 0}
-    @attack_range = 300
-    @strength = 10
+    @attack_range = 20
+    @attack_cooldown = 0
+    @attack_cooldown_remaining = 0
+    @strength = 30
 
   draw: () ->
     ctx.fillStyle = @color
@@ -106,10 +109,7 @@ class Unit
       x: target_x * BS + BS, y: target_y * BS + BS,
       rx: target_x, ry: target_y
     }
-    rem_x = @target.x - @x
-    rem_y = @target.y - @y
-    mag = Math.sqrt(rem_x * rem_x + rem_y * rem_y)
-    @dir = {x: rem_x / mag, y: rem_y / mag}
+    @dir = make_unit_vector(@x, @y, @target.x, @target.y)
 
   _can_attack_target: () ->
     rem_x = @target.x - @x
@@ -119,23 +119,28 @@ class Unit
 
   _attack: (city) ->
     city.take_damage(@target.rx, @target.ry, @strength)
+    @attack_cooldown_remaining = @attack_cooldown
 
   move: (city) ->
     if @target is null or city.level[@target.ry][@target.rx] == 0
       @_find_target(city)
     if @_can_attack_target()
-      @dir.x = @dir.y = 0
-      @_attack(city)
-    if within(@x, @target.x, @dir.x * @velocity)
-      @x = @target.x
-      @dir.x = 0
+      if @attack_cooldown_remaining == 0
+        @dir.x = @dir.y = 0
+        @_attack(city)
+      else
+        @attack_cooldown_remaining--
     else
-      @x += @dir.x * @velocity
-    if within(@y, @target.y, @dir.y * @velocity)
-      @y = @target.y
-      @dir.y = 0
-    else
-      @y += @dir.y * @velocity
+      if within(@x, @target.x, @dir.x * @velocity)
+        @x = @target.x
+        @dir.x = 0
+      else
+        @x += @dir.x * @velocity
+      if within(@y, @target.y, @dir.y * @velocity)
+        @y = @target.y
+        @dir.y = 0
+      else
+        @y += @dir.y * @velocity
 
 within = (pos, target_pos, velocity) ->
   return (Math.abs(target_pos - pos) < Math.abs(velocity))
@@ -143,15 +148,27 @@ within = (pos, target_pos, velocity) ->
 class Orc extends Unit
   constructor: (x, y) ->
     super('#6b6', x, y)
+    @strength = 30
+    @velocity = 6
+    @attack_cooldown = 3
 
 class Werewolf extends Unit
   constructor: (x, y) ->
     super('#66b', x, y)
+    @strength = 60
+    @velocity = 2
+    @attack_cooldown = 3
 
 class Skeleton extends Unit
   constructor: (x, y) ->
     super('#bbb', x, y)
+    @velocity = 10
     @attack_range = 1000
+    @attack_cooldown = 3
+
+  _attack: (city) ->
+    super
+    particles.push(new Arrow(@x, @y, @target.x, @target.y))
 
 rand = (a, b) ->
   Math.floor(Math.random() * (b - a) + a)
@@ -160,16 +177,16 @@ class Army
   constructor: () ->
     @orcs = 0
     @werewolves = 0
-    @skeletons = 0
+    @skeletons = 5
 
   prepare_for_battle: () ->
     [x, y, w, h] = [500, 100, 50, 50]
     @units = new Array
-    for i in [0..@orcs]
+    for i in [0...@orcs]
       @units.push(new Orc(rand(x, x + w), rand(y, y + h)))
-    for i in [0..@werewolves]
+    for i in [0...@werewolves]
       @units.push(new Werewolf(rand(x, x + w), rand(y, y + h)))
-    for i in [0..@skeletons]
+    for i in [0...@skeletons]
       @units.push(new Skeleton(rand(x, x + w), rand(y, y + h)))
 
   draw: () ->
@@ -179,10 +196,46 @@ class Army
     u.move(city) for u in @units
 
 army = new Army
-army.orcs = 10
-army.werewolves = 10
-army.skeletons = 10
-army.prepare_for_battle()
+
+make_unit_vector = (x, y, tx, ty) ->
+  rem_x = tx - x
+  rem_y = ty - y
+  mag = Math.sqrt(rem_x * rem_x + rem_y * rem_y)
+  return {x: rem_x / mag, y: rem_y / mag}
+
+class Particle
+  constructor: (@x, @y, @tx, @ty) ->
+    @velocity = 0
+    @dir = make_unit_vector(x, y, tx, ty)
+    @done = 0
+
+class Arrow extends Particle
+  constructor: (x, y, tx, ty) ->
+    super(x, y, tx, ty)
+    @velocity = 5
+
+  draw: () ->
+    ctx.lineWidth = 2.0
+    ctx.strokeStyle = "#bbb"
+    ctx.beginPath()
+    ctx.moveTo(@x, @y)
+    ctx.lineTo(@x + @dir.x * 3, @y + @dir.y * 3)
+    ctx.stroke()
+
+  move: () ->
+    if within(@x, @tx, @dir.x * @velocity)
+      @x = @tx
+      @dir.x = 0
+    else
+      @x += @dir.x * @velocity
+    if within(@y, @ty, @dir.y * @velocity)
+      @y = @ty
+      @dir.y = 0
+    else
+      @y += @dir.y * @velocity
+    if @dir.x == 0 and @dir.y == 0
+      console.log "setting done for particle"
+      @done = 1
 
 get_event_xy = (e) ->
   x = e.pageX - canvas.offsetLeft - canvas.clientLeft
@@ -195,21 +248,22 @@ handle_mouse_overworld = (x, y) ->
     state = STATE_RECRUIT
   if 400 < x <= 600 && 220 < y <= 260
     console.log("state change to battle")
-    city = new City
+    city = new City(level)
+    army.prepare_for_battle()
     state = STATE_BATTLE
 
 handle_mouse_recruit = (x, y) ->
   if 50 < x <= 200 && 50 < y <= 200
     day++
-    army.orcs++
+    army.orcs += 5
     state = STATE_OVERWORLD
   if 250 < x <= 400 && 50 < y <= 200
     day++
-    army.werewolves++
+    army.werewolves += 5
     state = STATE_OVERWORLD
   if 450 < x <= 600 && 50 < y <= 200
     day++
-    army.skeletons++
+    army.skeletons += 5
     state = STATE_OVERWORLD
   console.log("increased army => ", army)
 
@@ -265,6 +319,7 @@ draw_battle = () ->
   ctx.fillRect(0, 0, WIDTH, HEIGHT)
   city.draw()
   army.draw()
+  p.draw() for p in particles
   ctx.font = "bold 25px sans-serif"
   ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
@@ -279,6 +334,12 @@ draw = () ->
 
 update_battle = () ->
   army.move(city)
+  p.move() for p in particles
+  particles = particles.filter((p) -> !p.done)
+  hours++
+  if hours == 100
+    day++
+    hours = 0
 
 update = () ->
   switch state
