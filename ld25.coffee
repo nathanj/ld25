@@ -13,6 +13,7 @@ STATE_OVERWORLD = 1
 STATE_RECRUIT = 2
 STATE_TRAIN = 3
 STATE_BATTLE = 4
+STATE_BATTLE_OVER = 5
 
 state = STATE_OVERWORLD
 day = 1
@@ -31,7 +32,7 @@ level = [
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
   [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
@@ -62,19 +63,39 @@ class City
   constructor: (level) ->
     @level = deep_array_copy(level)
     @damage = make_damage_array(level)
+    @num_buildings_left = @get_buildings_left()
     console.log(@damage)
 
   draw: () ->
     ctx.fillStyle = "black"
     for row, y in @level
       for col, x in row
-        if col == 1
-          ctx.fillRect(x * BS, y * BS, BS, BS)
+        switch col
+          when 1
+            ctx.fillStyle = "black"
+            ctx.fillRect(x * BS, y * BS, BS, BS)
+          when -1
+            ctx.fillStyle = "gray"
+            ctx.fillRect(x * BS, y * BS, BS, BS)
+          when -2
+            ctx.fillStyle = "red"
+            ctx.fillRect(x * BS, y * BS, BS, BS)
+
+  get_buildings_left: () ->
+    sum = 0
+    for i in @level
+      sum += i.reduce((a, b) -> a + b)
+    sum
 
   take_damage: (x, y, amount) ->
-    @damage[y][x] -= amount
-    if @damage[y][x] < 0
-      @level[y][x] = 0
+    if @damage[y][x] > 0
+      @damage[y][x] -= amount
+      if @damage[y][x] < 0
+        @level[y][x] = rand(-2, 1)
+        @num_buildings_left--
+        particles.push(new Debris(x * BS, y * BS))
+        particles.push(new Debris(x * BS, y * BS))
+        particles.push(new Debris(x * BS, y * BS))
 
 class Unit
   constructor: (@color, @x, @y) ->
@@ -101,15 +122,19 @@ class Unit
           tmp_x = x * BS
           tmp_y = y * BS
           distance = Math.pow(@x - tmp_x, 2) + Math.pow(@y - tmp_y, 2)
-          if distance < min
+          if distance < min and Math.random() > 0.3
             target_x = x
             target_y = y
             min = distance
-    @target = {
-      x: target_x * BS + BS, y: target_y * BS + BS,
-      rx: target_x, ry: target_y
-    }
-    @dir = make_unit_vector(@x, @y, @target.x, @target.y)
+    if target_x != -1
+      @target = {
+        x: target_x * BS + BS, y: target_y * BS + BS,
+        rx: target_x, ry: target_y
+      }
+      @dir = make_unit_vector(@x, @y, @target.x, @target.y)
+    else
+      @target = {x: 0, y: 0, rx: 0, ry: 0}
+      @dir = {x: 0, y: 0}
 
   _can_attack_target: () ->
     rem_x = @target.x - @x
@@ -122,7 +147,7 @@ class Unit
     @attack_cooldown_remaining = @attack_cooldown
 
   move: (city) ->
-    if @target is null or city.level[@target.ry][@target.rx] == 0
+    if @target is null or city.level[@target.ry][@target.rx] <= 0
       @_find_target(city)
     if @_can_attack_target()
       if @attack_cooldown_remaining == 0
@@ -170,14 +195,47 @@ class Skeleton extends Unit
     super
     particles.push(new Arrow(@x, @y, @target.x, @target.y))
 
+class Cyclops extends Unit
+  constructor: (x, y) ->
+    super('#252', x, y)
+    @velocity = 10
+    @strength = 300
+    @attack_cooldown = 10
+
+  draw: () ->
+    ctx.fillStyle = @color
+    ctx.fillRect(@x, @y, 8, 8)
+
+class Dragon extends Unit
+  constructor: (x, y) ->
+    super('#c33', x, y)
+    @velocity = 15
+    @strength = 300
+    @attack_cooldown = 10
+
+  _attack: (city) ->
+    super
+    if @target.rx > 0 and @target.ry > 0
+      city.take_damage(@target.rx - 1, @target.ry - 1, @strength)
+    if @target.ry > 0
+      city.take_damage(@target.rx, @target.ry - 1, @strength)
+    if @target.rx > 0
+      city.take_damage(@target.rx - 1, @target.ry, @strength)
+
+  draw: () ->
+    ctx.fillStyle = @color
+    ctx.fillRect(@x, @y, 8, 8)
+
 rand = (a, b) ->
   Math.floor(Math.random() * (b - a) + a)
 
 class Army
   constructor: () ->
-    @orcs = 0
-    @werewolves = 0
+    @orcs = 5
+    @werewolves = 5
     @skeletons = 5
+    @cyclops = 0
+    @dragons = 0
 
   prepare_for_battle: () ->
     [x, y, w, h] = [500, 100, 50, 50]
@@ -188,6 +246,10 @@ class Army
       @units.push(new Werewolf(rand(x, x + w), rand(y, y + h)))
     for i in [0...@skeletons]
       @units.push(new Skeleton(rand(x, x + w), rand(y, y + h)))
+    for i in [0...@cyclops]
+      @units.push(new Cyclops(rand(x, x + w), rand(y, y + h)))
+    for i in [0...@dragons]
+      @units.push(new Dragon(rand(x, x + w), rand(y, y + h)))
 
   draw: () ->
     u.draw() for u in @units
@@ -209,6 +271,20 @@ class Particle
     @dir = make_unit_vector(x, y, tx, ty)
     @done = 0
 
+  move: () ->
+    if within(@x, @tx, @dir.x * @velocity)
+      @x = @tx
+      @dir.x = 0
+    else
+      @x += @dir.x * @velocity
+    if within(@y, @ty, @dir.y * @velocity)
+      @y = @ty
+      @dir.y = 0
+    else
+      @y += @dir.y * @velocity
+    if @dir.x == 0 and @dir.y == 0
+      @done = 1
+
 class Arrow extends Particle
   constructor: (x, y, tx, ty) ->
     super(x, y, tx, ty)
@@ -222,20 +298,20 @@ class Arrow extends Particle
     ctx.lineTo(@x + @dir.x * 3, @y + @dir.y * 3)
     ctx.stroke()
 
-  move: () ->
-    if within(@x, @tx, @dir.x * @velocity)
-      @x = @tx
-      @dir.x = 0
-    else
-      @x += @dir.x * @velocity
-    if within(@y, @ty, @dir.y * @velocity)
-      @y = @ty
-      @dir.y = 0
-    else
-      @y += @dir.y * @velocity
-    if @dir.x == 0 and @dir.y == 0
-      console.log "setting done for particle"
-      @done = 1
+class Debris extends Particle
+  constructor: (x, y) ->
+    tx = rand(x - 25, x + 25)
+    ty = rand(y - 25, y + 25)
+    super(x, y, tx, ty)
+    @velocity = 5
+
+  draw: () ->
+    ctx.lineWidth = 2.0
+    ctx.strokeStyle = "#666"
+    ctx.beginPath()
+    ctx.moveTo(@x, @y)
+    ctx.lineTo(@x + @dir.x * 3, @y + @dir.y * 3)
+    ctx.stroke()
 
 get_event_xy = (e) ->
   x = e.pageX - canvas.offsetLeft - canvas.clientLeft
@@ -265,7 +341,21 @@ handle_mouse_recruit = (x, y) ->
     day++
     army.skeletons += 5
     state = STATE_OVERWORLD
+  if 150 < x <= 300 && 220 < y <= 370
+    day++
+    army.cyclops += 5
+    state = STATE_OVERWORLD
+  if 350 < x <= 500 && 220 < y <= 370
+    day++
+    army.dragons += 5
+    state = STATE_OVERWORLD
   console.log("increased army => ", army)
+
+handle_mouse_battle_over = (x, y) ->
+  sx = WIDTH / 2 - 75
+  sy = HEIGHT / 2 - 75
+  if sx < x < sx + 150 and sy < y < sy + 150
+    state = STATE_OVERWORLD
 
 on_mouse = (e) ->
   [x, y] = get_event_xy(e)
@@ -273,6 +363,7 @@ on_mouse = (e) ->
   switch state
     when STATE_OVERWORLD then handle_mouse_overworld(x, y)
     when STATE_RECRUIT then handle_mouse_recruit(x, y)
+    when STATE_BATTLE_OVER then handle_mouse_battle_over(x, y)
     else console.log("unknown state=%d", state)
   return
 
@@ -295,16 +386,21 @@ draw_overworld = () ->
   ctx.fillText("Go", 420, 250)
   ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
-  ctx.fillText("Orcs: " + army.orcs, 420, 350)
-  ctx.fillText("Werewolves: " + army.werewolves, 420, 380)
-  ctx.fillText("Skeletons: " + army.skeletons, 420, 410)
+  ctx.fillText("Orcs: " + army.orcs, 420, 300)
+  ctx.fillText("Werewolves: " + army.werewolves, 420, 330)
+  ctx.fillText("Skeletons: " + army.skeletons, 420, 360)
+  ctx.fillText("Cyclops: " + army.cyclops, 420, 390)
+  ctx.fillText("Dragons: " + army.dragons, 420, 420)
 
 draw_recruit_box = (str, pos) ->
+  switch pos
+    when 0, 1, 2 then [x, y] = [200 * pos, 0]
+    else [x, y] = [100 + 200 * (pos - 3), 170]
   ctx.fillStyle = "black"
-  ctx.fillRect(50 + pos * 200, 50, 150, 150)
+  ctx.fillRect(50 + x, 50 + y, 150, 150)
   ctx.fillStyle = "white"
-  ctx.fillText("Recruit", 120 + pos * 200, 70)
-  ctx.fillText(str, 120 + pos * 200, 120)
+  ctx.fillText("Recruit", 120 + x, 70 + y)
+  ctx.fillText(str, 120 + x, 120 + y)
 
 draw_recruit = () ->
   ctx.font = "bold 20px sans-serif"
@@ -313,6 +409,8 @@ draw_recruit = () ->
   draw_recruit_box("Orcs", 0)
   draw_recruit_box("Werewolves", 1)
   draw_recruit_box("Skeletons", 2)
+  draw_recruit_box("Cyclops", 3)
+  draw_recruit_box("Dragon", 4)
 
 draw_battle = () ->
   ctx.fillStyle = "#bfb"
@@ -324,12 +422,25 @@ draw_battle = () ->
   ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
 
+draw_battle_over = () ->
+  draw_battle()
+  ctx.font = "bold 25px sans-serif"
+  ctx.textAlign = "center"
+  ctx.textBaseline = "alphabetic"
+  ctx.fillStyle = "black"
+  ctx.fillText("You destroyed the city!", WIDTH/2, 100)
+  ctx.fillStyle = "black"
+  ctx.fillRect(WIDTH / 2 - 75, HEIGHT / 2 - 75, 150, 150)
+  ctx.fillStyle = "white"
+  ctx.fillText("OK", WIDTH / 2, HEIGHT / 2)
+
 draw = () ->
   ctx.clearRect(0, 0, WIDTH, HEIGHT)
   switch state
     when STATE_OVERWORLD then draw_overworld()
     when STATE_RECRUIT then draw_recruit()
     when STATE_BATTLE then draw_battle()
+    when STATE_BATTLE_OVER then draw_battle_over()
     else console.log("unknown state=%d", state)
 
 update_battle = () ->
@@ -340,8 +451,12 @@ update_battle = () ->
   if hours == 100
     day++
     hours = 0
+  if city.num_buildings_left == 0
+    console.log("battle over!")
+    state = STATE_BATTLE_OVER
 
 update = () ->
+  console.log(state)
   switch state
     when STATE_BATTLE then update_battle()
   draw()
