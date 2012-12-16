@@ -258,7 +258,6 @@ class City
     @level = deep_array_copy(level)
     @damage = make_damage_array(level)
     @num_buildings_left = @get_buildings_left()
-    console.log(@damage)
 
   draw: () ->
     ctx.fillStyle = "black"
@@ -548,33 +547,27 @@ get_event_xy = (e) ->
   [x, y]
 
 handle_mouse_overworld = (x, y) ->
-  console.log("%d, %d", x, y)
   if 100 < x < 100 + img_target.width and 100 < y < 100 + img_target.height and not levels_done[0]
-    console.log("state change to battle")
     city = new City(level1)
     army.prepare_for_battle()
     state = STATE_BATTLE
     levels_done[0] = 1
   if 150 < x < 150 + img_target.width and 350 < y < 350 + img_target.height and not levels_done[1]
-    console.log("state change to battle")
     city = new City(level2)
     army.prepare_for_battle()
     state = STATE_BATTLE
     levels_done[1] = 1
   if 270 < x < 270 + img_target.width and 200 < y < 200 + img_target.height and not levels_done[2]
-    console.log("state change to battle")
     city = new City(level3)
     army.prepare_for_battle()
     state = STATE_BATTLE
     levels_done[2] = 1
   if 370 < x < 370 + img_target.width and 150 < y < 150 + img_target.height and not levels_done[3]
-    console.log("state change to battle")
     city = new City(level4)
     army.prepare_for_battle()
     state = STATE_BATTLE
     levels_done[3] = 1
   if 380 < x < 380 + img_target.width and 320 < y < 320 + img_target.height and not levels_done[4]
-    console.log("state change to battle")
     city = new City(level5)
     army.prepare_for_battle()
     state = STATE_BATTLE
@@ -598,7 +591,6 @@ handle_mouse_recruit = (x, y) ->
     army.dragons += 1
   if 500 < x <= 600 && 400 < y <= 450
     state = STATE_OVERWORLD
-  console.log("increased army => ", army)
 
 handle_mouse_battle_over = (x, y) ->
   sx = WIDTH / 2 - 75
@@ -644,7 +636,6 @@ on_mouse = (e) ->
       when STATE_BATTLE then handle_mouse_battle(x, y)
       when STATE_BATTLE_OVER then handle_mouse_battle_over(x, y)
       when STATE_GAME_OVER then handle_mouse_game_over(x, y)
-      else console.log("unknown state=%d", state)
   else if e.type == 'mousemove'
     [mouse_x, mouse_y] = [x, y]
 
@@ -823,7 +814,6 @@ draw = () ->
     when STATE_BATTLE then draw_battle()
     when STATE_BATTLE_OVER then draw_battle_over()
     when STATE_GAME_OVER then draw_game_over()
-    else console.log("unknown state=%d", state)
 
 update_battle = () ->
   army.move(city)
@@ -835,19 +825,28 @@ update_battle = () ->
       day++
       hours = 0
   if city.num_buildings_left == 0
-    console.log("battle over!")
     cities_destroyed++
     state = STATE_BATTLE_OVER
     if cities_destroyed == 5
       state = STATE_GAME_OVER
 
 update = () ->
-  console.log(state)
   switch state
     when STATE_BATTLE then update_battle()
   draw()
 
 window.init = () ->
+
+  soundManager.setup({
+    url: 'swf',
+    onready: () ->
+      music = soundManager.createSound({
+        id: 'music',
+        url: ['bg.mp3', 'bg.ogg']
+      })
+      music.play({loops: 9999})
+  })
+
   canvas = document.getElementById('a')
   ctx = canvas.getContext('2d')
   canvas.addEventListener("mousedown", on_mouse, false)
