@@ -839,10 +839,11 @@ window.init = () ->
 
   soundManager.setup({
     url: 'swf',
+    preferFlash: false,
     onready: () ->
       music = soundManager.createSound({
         id: 'music',
-        url: ['bg.mp3', 'bg.ogg']
+        url: ['bg.ogg', 'bg.mp3']
       })
       music.play({loops: 9999})
   })
