@@ -21,6 +21,18 @@ day = 1
 hours = 0
 cities_destroyed = 0
 gold = 5000
+mouse_x = -1
+mouse_y = -1
+
+levels_done = [0, 0, 0, 0, 0]
+
+load_image = (src) ->
+  a = new Image()
+  a.src = src
+  a
+
+img_map = load_image('map.png')
+img_target = load_image('target.png')
 
 level1 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -444,14 +456,37 @@ get_event_xy = (e) ->
   [x, y]
 
 handle_mouse_overworld = (x, y) ->
-  if 400 < x <= 600 && 40 < y <= 80
-    console.log("state change to recruit")
-    state = STATE_RECRUIT
-  if 400 < x <= 600 && 220 < y <= 260
+  console.log("%d, %d", x, y)
+  if 100 < x < 100 + img_target.width and 100 < y < 100 + img_target.height and not levels_done[0]
+    console.log("state change to battle")
+    city = new City(level1)
+    army.prepare_for_battle()
+    state = STATE_BATTLE
+    levels_done[0] = 1
+  if 150 < x < 150 + img_target.width and 350 < y < 350 + img_target.height and not levels_done[1]
+    console.log("state change to battle")
+    city = new City(level2)
+    army.prepare_for_battle()
+    state = STATE_BATTLE
+    levels_done[1] = 1
+  if 270 < x < 270 + img_target.width and 200 < y < 200 + img_target.height and not levels_done[2]
     console.log("state change to battle")
     city = new City(level3)
     army.prepare_for_battle()
     state = STATE_BATTLE
+    levels_done[2] = 1
+  if 370 < x < 370 + img_target.width and 150 < y < 150 + img_target.height and not levels_done[3]
+    console.log("state change to battle")
+    city = new City(level1)
+    army.prepare_for_battle()
+    state = STATE_BATTLE
+    levels_done[3] = 1
+  if 380 < x < 380 + img_target.width and 320 < y < 320 + img_target.height and not levels_done[4]
+    console.log("state change to battle")
+    city = new City(level1)
+    army.prepare_for_battle()
+    state = STATE_BATTLE
+    levels_done[4] = 1
 
 handle_mouse_recruit = (x, y) ->
   if 50 < x <= 200 && 50 < y <= 200
@@ -509,40 +544,58 @@ handle_mouse_battle = (x, y) ->
 
 on_mouse = (e) ->
   [x, y] = get_event_xy(e)
-  console.log("x=%d, y=%d", x, y)
-  switch state
-    when STATE_OVERWORLD then handle_mouse_overworld(x, y)
-    when STATE_RECRUIT then handle_mouse_recruit(x, y)
-    when STATE_BATTLE then handle_mouse_battle(x, y)
-    when STATE_BATTLE_OVER then handle_mouse_battle_over(x, y)
-    when STATE_GAME_OVER then handle_mouse_game_over(x, y)
-    else console.log("unknown state=%d", state)
-  return
+  if e.type == 'mousedown'
+    switch state
+      when STATE_OVERWORLD then handle_mouse_overworld(x, y)
+      when STATE_RECRUIT then handle_mouse_recruit(x, y)
+      when STATE_BATTLE then handle_mouse_battle(x, y)
+      when STATE_BATTLE_OVER then handle_mouse_battle_over(x, y)
+      when STATE_GAME_OVER then handle_mouse_game_over(x, y)
+      else console.log("unknown state=%d", state)
+  else if e.type == 'mousemove'
+    [mouse_x, mouse_y] = [x, y]
 
 on_key = (e) ->
   return
 
+draw_target = (img, x, y, mouse_x, mouse_y) ->
+  if x < mouse_x < x + img_target.width and y < mouse_y < y + img_target.height
+    ctx.drawImage(img, x - img.width / 2, y - img.height / 2, img.width * 2, img.height * 2)
+  else
+    ctx.drawImage(img, x, y)
+
 draw_overworld = () ->
+  ctx.drawImage(img_map, 0, 0)
+  if not levels_done[0]
+    draw_target(img_target, 100, 100, mouse_x, mouse_y)
+  if not levels_done[1]
+    draw_target(img_target, 150, 350, mouse_x, mouse_y)
+  if not levels_done[2]
+    draw_target(img_target, 270, 200, mouse_x, mouse_y)
+  if not levels_done[3]
+    draw_target(img_target, 370, 150, mouse_x, mouse_y)
+  if not levels_done[4]
+    draw_target(img_target, 380, 320, mouse_x, mouse_y)
   ctx.fillStyle = "black"
   ctx.font = "bold 25px sans-serif"
   ctx.textAlign = "start"
   ctx.textBaseline = "alphabetic"
-  ctx.fillRect(400, 40, 200, 40)
-  ctx.fillRect(400, 100, 200, 40)
-  ctx.fillRect(400, 160, 200, 40)
-  ctx.fillRect(400, 220, 200, 40)
-  ctx.fillStyle = "white"
-  ctx.fillText("Recruit", 420, 70)
-  ctx.fillText("Train", 420, 130)
-  ctx.fillText("Status", 420, 190)
-  ctx.fillText("Go", 420, 250)
+  #ctx.fillRect(400, 40, 200, 40)
+  #ctx.fillRect(400, 100, 200, 40)
+  #ctx.fillRect(400, 160, 200, 40)
+  #ctx.fillRect(400, 220, 200, 40)
+  #ctx.fillStyle = "white"
+  #ctx.fillText("Recruit", 420, 70)
+  #ctx.fillText("Train", 420, 130)
+  #ctx.fillText("Status", 420, 190)
+  #ctx.fillText("Go", 420, 250)
   ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
-  ctx.fillText("Orcs: " + army.orcs, 420, 300)
-  ctx.fillText("Werewolves: " + army.werewolves, 420, 330)
-  ctx.fillText("Skeletons: " + army.skeletons, 420, 360)
-  ctx.fillText("Cyclops: " + army.cyclops, 420, 390)
-  ctx.fillText("Dragons: " + army.dragons, 420, 420)
+  #ctx.fillText("Orcs: " + army.orcs, 420, 300)
+  #ctx.fillText("Werewolves: " + army.werewolves, 420, 330)
+  #ctx.fillText("Skeletons: " + army.skeletons, 420, 360)
+  #ctx.fillText("Cyclops: " + army.cyclops, 420, 390)
+  #ctx.fillText("Dragons: " + army.dragons, 420, 420)
 
 draw_recruit_box = (str, pos, days) ->
   switch pos
@@ -670,7 +723,7 @@ update_battle = () ->
     console.log("battle over!")
     cities_destroyed++
     state = STATE_BATTLE_OVER
-    if cities_destroyed == 1
+    if cities_destroyed == 5
       state = STATE_GAME_OVER
 
 update = () ->
@@ -683,7 +736,7 @@ window.init = () ->
   canvas = document.getElementById('a')
   ctx = canvas.getContext('2d')
   canvas.addEventListener("mousedown", on_mouse, false)
-  #canvas.addEventListener("mousemove", on_mouse, false)
+  canvas.addEventListener("mousemove", on_mouse, false)
   #canvas.addEventListener("mouseup", on_mouse, false)
   window.addEventListener('keydown', on_key, false)
   window.addEventListener('keyup', on_key, false)
