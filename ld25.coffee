@@ -20,7 +20,7 @@ state = STATE_OVERWORLD
 day = 1
 hours = 0
 cities_destroyed = 0
-gold = 5000
+gold = 50
 mouse_x = -1
 mouse_y = -1
 
@@ -33,6 +33,11 @@ load_image = (src) ->
 
 img_map = load_image('map.png')
 img_target = load_image('target.png')
+img_orc = load_image('orc.png')
+img_werewolf = load_image('werewolf.png')
+img_skeleton = load_image('skeleton.png')
+img_cyclops = load_image('cyclops.png')
+img_dragon = load_image('dragon.png')
 
 level1 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -526,19 +531,19 @@ handle_mouse_game_over = (x, y) ->
     state = STATE_OVERWORLD
 
 handle_mouse_battle = (x, y) ->
-  if 20 < x < 20 + 50 and 400 < y < 450 and gold >= 10
+  if 20 < x < 20 + img_orc.width and 400 < y < 400 + img_orc.height and gold >= 10
     army.add_unit('orc', 1)
     gold -= 10
-  if 90 < x < 90 + 50 and 400 < y < 450 and gold >= 10
+  if 90 < x < 90 + img_skeleton.width and 400 < y < 400 + img_skeleton.height and gold >= 10
     army.add_unit('skeleton', 1)
     gold -= 10
-  if 160 < x < 160 + 50 and 400 < y < 450 and gold >= 15
+  if 160 < x < 160 + img_werewolf.width and 400 < y < 400 + img_werewolf.height and gold >= 15
     army.add_unit('werewolf', 1)
     gold -= 15
-  if 230 < x < 230 + 50 and 400 < y < 450 and gold >= 40
+  if 230 < x < 230 + img_cyclops.width and 400 < y < 400 + img_cyclops.height and gold >= 40
     army.add_unit('cyclops', 1)
     gold -= 40
-  if 300 < x < 300 + 50 and 400 < y < 450 and gold >= 100
+  if 300 < x < 300 + img_dragon.width and 400 < y < 400 + img_dragon.height and gold >= 100
     army.add_unit('dragon', 1)
     gold -= 100
 
@@ -624,6 +629,14 @@ draw_recruit = () ->
   ctx.fillStyle = "black"
   ctx.fillText("Day: " + day, 420, 450)
 
+draw_face = (img, x, y, mouse_x, mouse_y, unit, cost) ->
+  if x < mouse_x < x + img_target.width and y < mouse_y < y + img_target.height
+    ctx.drawImage(img, x - img.width / 4, y - img.height / 4, img.width, img.height)
+    ctx.fillStyle = "black"
+    ctx.fillText(unit + " Cost: " + cost, 420, 460)
+  else
+    ctx.drawImage(img, x, y, img.width / 2, img.height / 2)
+
 draw_battle = () ->
   ctx.fillStyle = "#bfb"
   ctx.fillRect(0, 0, WIDTH, HEIGHT)
@@ -631,7 +644,10 @@ draw_battle = () ->
   army.draw()
   p.draw() for p in particles
   ctx.font = "bold 25px sans-serif"
+  ctx.fillStyle = "#9b9"
+  ctx.fillRect(0, 340, WIDTH, HEIGHT - 340)
   ctx.fillStyle = "black"
+  ctx.fillText("Recruit Units", 100, 380)
   ctx.fillText("Day: " + day, 420, 400)
   ctx.fillText("Gold: " + gold, 420, 430)
   ctx.fillStyle = "#6a6"
@@ -639,16 +655,27 @@ draw_battle = () ->
   ctx.strokeStyle = "black"
   ctx.strokeRect(525, 380, 100, 20)
 
-  ctx.fillStyle = if gold >= 10 then "#a66" else "#888"
-  ctx.fillRect(20, 400, 50, 50)
-  ctx.fillStyle = if gold >= 10 then "#a66" else "#888"
-  ctx.fillRect(90, 400, 50, 50)
-  ctx.fillStyle = if gold >= 15 then "#a66" else "#888"
-  ctx.fillRect(160, 400, 50, 50)
-  ctx.fillStyle = if gold >= 40 then "#a66" else "#888"
-  ctx.fillRect(230, 400, 50, 50)
-  ctx.fillStyle = if gold >= 100 then "#a66" else "#888"
-  ctx.fillRect(300, 400, 50, 50)
+  ctx.globalAlpha = if gold >= 10 then 1.0 else 0.2
+  draw_face(img_orc, 20, 400, mouse_x, mouse_y, "Orc", 10)
+  ctx.globalAlpha = if gold >= 10 then 1.0 else 0.2
+  draw_face(img_skeleton, 90, 400, mouse_x, mouse_y, "Skeleton", 10)
+  ctx.globalAlpha = if gold >= 15 then 1.0 else 0.2
+  draw_face(img_werewolf, 160, 400, mouse_x, mouse_y, "Werewolf", 15)
+  ctx.globalAlpha = if gold >= 40 then 1.0 else 0.2
+  draw_face(img_cyclops, 230, 400, mouse_x, mouse_y, "Cyclops", 40)
+  ctx.globalAlpha = if gold >= 100 then 1.0 else 0.2
+  draw_face(img_dragon, 300, 400, mouse_x, mouse_y, "Dragon", 100)
+  ctx.globalAlpha = 1
+  #ctx.fillStyle = if gold >= 10 then "#a66" else "#888"
+  #ctx.fillRect(20, 400, 50, 50)
+  #ctx.fillStyle = if gold >= 10 then "#a66" else "#888"
+  #ctx.fillRect(90, 400, 50, 50)
+  #ctx.fillStyle = if gold >= 15 then "#a66" else "#888"
+  #ctx.fillRect(160, 400, 50, 50)
+  #ctx.fillStyle = if gold >= 40 then "#a66" else "#888"
+  #ctx.fillRect(230, 400, 50, 50)
+  #ctx.fillStyle = if gold >= 100 then "#a66" else "#888"
+  #ctx.fillRect(300, 400, 50, 50)
 
 draw_battle_over = () ->
   draw_battle()

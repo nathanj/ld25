@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg3000"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="werewolf.svg">
+  <defs
+     id="defs3002">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3102">
+      <stop
+         style="stop-color:#808080;stop-opacity:1;"
+         offset="0"
+         id="stop3104" />
+      <stop
+         style="stop-color:#808080;stop-opacity:0;"
+         offset="1"
+         id="stop3106" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3008" />
+    <filter
+       id="filter3021"
+       inkscape:label="Torn edges"
+       inkscape:menu="Distort"
+       inkscape:menu-tooltip="Displace the outside of shapes and pictures without altering their content"
+       height="1.4"
+       y="-0.2"
+       width="1.4"
+       x="-0.2"
+       color-interpolation-filters="sRGB">
+      <feTurbulence
+         id="feTurbulence3023"
+         baseFrequency="0.05"
+         numOctaves="5"
+         type="fractalNoise"
+         result="result91" />
+      <feDisplacementMap
+         id="feDisplacementMap3025"
+         in2="result91"
+         scale="25"
+         result="result5"
+         xChannelSelector="R"
+         in="SourceGraphic" />
+      <feComposite
+         id="feComposite3027"
+         in2="result5"
+         in="SourceGraphic"
+         operator="atop" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3102"
+       id="linearGradient3108"
+       x1="414.28571"
+       y1="503.79074"
+       x2="260"
+       y2="546.64789"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.3251065,0,0,1.2268342,-177.56979,-149.90557)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="232.32226"
+     inkscape:cy="586.45432"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:object-paths="true"
+     inkscape:snap-bbox="true"
+     inkscape:window-width="866"
+     inkscape:window-height="967"
+     inkscape:window-x="4"
+     inkscape:window-y="38"
+     inkscape:window-maximized="0"
+     inkscape:snap-global="false" />
+  <metadata
+     id="metadata3005">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#666666;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3021)"
+       d="M 105.0625 125.03125 L 155.5625 267.75 L 155.5625 751.34375 L 332.5625 1022.75 L 459.28125 1022.75 L 636.28125 751.34375 L 636.40625 751.34375 L 636.40625 270.3125 L 687.8125 125.03125 L 497.90625 167.46875 L 294.96875 167.46875 L 105.0625 125.03125 z "
+       id="rect3010" />
+    <path
+       id="path3029"
+       d="m 105.0625,125.03125 50.5,142.71875 0,483.59375 177,271.40625 126.71875,0 177,-271.40625 0.125,0 0,-481.03125 51.40625,-145.28125 -189.90625,42.4375 -202.9375,0 -189.90625,-42.4375 z"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3021)"
+       transform="matrix(0.67174502,0,0,0.67174502,130.13258,188.38246)"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:url(#linearGradient3108);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 200.71875,272.375 33.90625,95.875 0,324.84375 118.90625,182.3125 64.5625,0 -45.71429,-575.95982 -44.09821,1.42857 -127.5625,-28.5 z"
+       id="rect3098"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3033"
+       sodipodi:cx="293.95438"
+       sodipodi:cy="403.84424"
+       sodipodi:rx="28.284271"
+       sodipodi:ry="28.284271"
+       d="m 322.23865,403.84424 a 28.284271,28.284271 0 1 1 -56.56855,0 28.284271,28.284271 0 1 1 56.56855,0 z"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       d="m 322.23865,403.84424 a 28.284271,28.284271 0 1 1 -56.56855,0 28.284271,28.284271 0 1 1 56.56855,0 z"
+       sodipodi:ry="28.284271"
+       sodipodi:rx="28.284271"
+       sodipodi:cy="403.84424"
+       sodipodi:cx="293.95438"
+       id="path3035"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       sodipodi:type="arc"
+       transform="translate(192.93914,0)"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3037"
+       sodipodi:cx="401.53564"
+       sodipodi:cy="675.57526"
+       sodipodi:rx="87.378197"
+       sodipodi:ry="66.670067"
+       d="m 488.91384,675.57526 a 87.378197,66.670067 0 1 1 -174.75639,0 87.378197,66.670067 0 1 1 174.75639,0 z"
+       transform="translate(-7.0710678,1.5152288)"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 338.90625 625.625 C 333.27774 629.16538 328.2548 633.22319 323.9375 637.71875 L 326.78125 659.40625 L 338.90625 686.1875 L 338.90625 625.625 z "
+       id="rect3039"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 448 624.40625 L 448 675.0625 L 460.125 648.3125 L 461.90625 634.71875 C 457.78417 630.90313 453.12165 627.44095 448 624.40625 z "
+       id="path3044"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 356.09375 666.46875 L 356.09375 737 C 361.93681 739.18356 368.13842 740.85062 374.625 742 L 368.1875 693.25 L 356.09375 666.46875 z "
+       id="path3046"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 440.9375 666.46875 L 428.8125 693.25 L 422.625 740.1875 C 429.1002 738.505 435.24636 736.26452 440.9375 733.53125 L 440.9375 666.46875 z "
+       id="path3048"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 379.3125 685.15625 L 379.3125 742.75 C 383.89572 743.36151 388.60714 743.7062 393.40625 743.75 L 388.3125 705.0625 L 379.3125 685.15625 z "
+       id="path3050"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 404.0625 688.1875 L 404.0625 743.34375 C 408.64946 742.96151 413.12324 742.30884 417.46875 741.40625 L 413.0625 708.09375 L 404.0625 688.1875 z "
+       id="path3052"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 328.8125 678.09375 L 328.8125 721.0625 C 332.7952 724.52078 337.22965 727.66982 342.0625 730.4375 L 337.8125 698 L 328.8125 678.09375 z "
+       id="path3054"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 452.03125 676.09375 L 452.03125 727.21875 C 456.3973 724.29744 460.37532 721.05586 463.90625 717.53125 L 461.0625 696 L 452.03125 676.09375 z "
+       id="path3056"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 414.65625 612.25 L 414.65625 655.96875 L 423.6875 636.0625 L 426.4375 615.0625 C 422.62912 613.91846 418.70422 612.981 414.65625 612.25 z "
+       id="path3058"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 394.46875 610.40625 C 392.93953 610.40625 391.41617 610.44078 389.90625 610.5 L 389.90625 657.46875 L 398.9375 637.5625 L 402.46875 610.6875 C 399.83376 610.50499 397.16607 610.40625 394.46875 610.40625 z "
+       id="path3060"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066" />
+    <path
+       style="fill:#e9ddaf;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 370.9375 612.875 C 366.67886 613.78136 362.56347 614.94651 358.59375 616.3125 L 358.59375 658 L 367.625 638.09375 L 370.9375 612.875 z "
+       id="path3062"
+       inkscape:export-xdpi="11.779066"
+       inkscape:export-ydpi="11.779066"
+       inkscape:export-filename="/home/njones/code/ld25/werewolf.png" />
+  </g>
+</svg>

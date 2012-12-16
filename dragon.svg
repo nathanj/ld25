@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2960"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="dragon.svg">
+  <defs
+     id="defs2962">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3007">
+      <stop
+         style="stop-color:#2b0000;stop-opacity:0.4517098"
+         offset="0"
+         id="stop3009" />
+      <stop
+         style="stop-color:#2b0000;stop-opacity:0;"
+         offset="1"
+         id="stop3011" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2968" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3007"
+       id="linearGradient3013"
+       x1="266.51755"
+       y1="288.68686"
+       x2="22.84375"
+       y2="312.93051"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.5340538,0,0,0.99792789,-40.484061,0.09667678)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="258.3324"
+     inkscape:cy="853.70259"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="886"
+     inkscape:window-height="1002"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata2965">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#800000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 22.857143,46.647896 685.714297,0 -185,942.857114 c 0,0 -137.92745,88.89339 -315.7143,0 L 22.857143,46.647896 z"
+       id="rect2970"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:#ffccaa;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 187.14285,275.21934 98.57143,42.14286 15.71429,49.28571 c 0,0 -40.71429,7.85714 -87.14286,-0.71429 -26.42857,-31.42857 -27.14286,-90.71428 -27.14286,-90.71428 z"
+       id="rect2973"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2976"
+       d="m 550,275.21934 -98.57143,42.14286 -15.71429,49.28571 c 0,0 40.71429,7.85714 87.14286,-0.71429 C 549.28571,334.50505 550,275.21934 550,275.21934 z"
+       style="fill:#ffccaa;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 201.42857,608.07648 78.57143,0 0,181.42857 c 5.71429,52.85714 -51.42857,-4.28571 -51.42857,-4.28571 -17.14286,-27.14286 -27.14286,-177.14286 -27.14286,-177.14286 z"
+       id="rect2978"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2981"
+       d="m 530.40169,608.07648 -78.57143,0 0,181.42857 c -5.71429,52.85714 51.42857,-4.28571 51.42857,-4.28571 17.14286,-27.14286 27.14286,-177.14286 27.14286,-177.14286 z"
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2983"
+       d="m 281.42857,608.07648 35.62453,0 0,82.26028 c 2.59088,23.96559 -23.31787,-1.94315 -23.31787,-1.94315 -7.77263,-12.30666 -12.30666,-80.31713 -12.30666,-80.31713 z"
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 322.85714,608.07648 35.62453,0 0,82.26028 c 2.59088,23.96559 -23.31787,-1.94315 -23.31787,-1.94315 -7.77263,-12.30666 -12.30666,-80.31713 -12.30666,-80.31713 z"
+       id="path2985"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2987"
+       d="m 367.14285,608.07648 35.62453,0 0,82.26028 c 2.59088,23.96559 -23.31787,-1.94315 -23.31787,-1.94315 -7.77263,-12.30666 -12.30666,-80.31713 -12.30666,-80.31713 z"
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 407.14285,608.07648 35.62453,0 0,82.26028 c 2.59088,23.96559 -23.31787,-1.94315 -23.31787,-1.94315 -7.77263,-12.30666 -12.30666,-80.31713 -12.30666,-80.31713 z"
+       id="path2989"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2991"
+       d="m 421.42856,858.97871 25.67539,0 0,-59.28682 c 1.86731,-17.27254 -16.80571,1.40047 -16.80571,1.40047 -5.6019,8.86968 -8.86968,57.88635 -8.86968,57.88635 z"
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 317.23521,858.97871 -25.67539,0 0,-59.28682 c -1.86731,-17.27254 16.80571,1.40047 16.80571,1.40047 5.6019,8.86968 8.86968,57.88635 8.86968,57.88635 z"
+       id="path2993"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2995"
+       d="m 345.75508,857.55014 -18.51757,0 0,-42.75877 c -1.34674,-12.45728 12.12059,1.01004 12.12059,1.01004 4.0402,6.39698 6.39698,41.74873 6.39698,41.74873 z"
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 387.14284,857.55014 18.51757,0 0,-42.75877 c 1.34674,-12.45728 -12.12059,1.01004 -12.12059,1.01004 -4.0402,6.39698 -6.39698,41.74873 -6.39698,41.74873 z"
+       id="path2997"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2999"
+       d="m 358.57141,857.55014 18.51757,0 0,-23.68795 c 1.34674,-6.90121 -12.12059,0.55956 -12.12059,0.55956 -4.0402,3.54386 -6.39698,23.12839 -6.39698,23.12839 z"
+       style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+    <path
+       style="fill:url(#linearGradient3013);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M -5.4405213,46.65625 278.35941,987.54633 c 48.86378,15.89327 95.76551,26.05567 139.83859,32.08957 l 0,-972.97965 -423.6385213,0 z"
+       id="path3001"
+       inkscape:export-filename="/home/njones/code/ld25/dragon.png"
+       inkscape:export-xdpi="9.161561"
+       inkscape:export-ydpi="9.161561" />
+  </g>
+</svg>

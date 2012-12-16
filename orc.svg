@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="orc.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2971">
+      <stop
+         style="stop-color:#17280b;stop-opacity:1;"
+         offset="0"
+         id="stop2973" />
+      <stop
+         style="stop-color:#17280b;stop-opacity:0;"
+         offset="1"
+         id="stop2975" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2952">
+      <stop
+         style="stop-color:#17280b;stop-opacity:1;"
+         offset="0"
+         id="stop2954" />
+      <stop
+         style="stop-color:#17280b;stop-opacity:0;"
+         offset="1"
+         id="stop2956" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2952"
+       id="linearGradient2958"
+       x1="383.35291"
+       y1="324.04221"
+       x2="361.12955"
+       y2="329.09296"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2971"
+       id="linearGradient2977"
+       x1="213.64726"
+       y1="634.66412"
+       x2="246.9823"
+       y2="625.57275"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="187.1688"
+     inkscape:cy="639.78694"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="false"
+     inkscape:object-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-global="false"
+     inkscape:window-width="870"
+     inkscape:window-height="1002"
+     inkscape:window-x="9"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#17280b;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 181.90625 634.09375 L 277.78125 972.5625 L 294.03125 972.5625 L 291.53125 923.84375 L 297.625 929.40625 L 306 972.5625 L 328.09375 972.5625 L 325.8125 928.125 L 331.90625 933.6875 L 339.4375 972.5625 L 364.9375 972.5625 L 362.96875 933.84375 L 369.0625 939.40625 L 375.46875 972.5625 L 403.03125 972.5625 L 400.8125 929.5625 L 406.90625 935.125 L 414.15625 972.5625 L 436.4375 972.5625 L 438.625 922.8125 L 444.15625 928.9375 L 448.34375 972.5625 L 475.78125 972.5625 L 477.90625 924.25 L 483.4375 930.34375 L 487.46875 972.5625 L 503.0625 972.5625 L 574.59375 638.03125 L 181.90625 634.09375 z "
+       id="rect2928"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#5aa02c;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path2816"
+       sodipodi:cx="379.81735"
+       sodipodi:cy="436.16913"
+       sodipodi:rx="232.33508"
+       sodipodi:ry="379.81735"
+       d="m 612.15244,436.16913 a 232.33508,379.81735 0 1 1 -464.67017,0 232.33508,379.81735 0 1 1 464.67017,0 z"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#550000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path2924"
+       sodipodi:cx="375.01913"
+       sodipodi:cy="675.32275"
+       sodipodi:rx="122.481"
+       sodipodi:ry="72.983521"
+       d="m 497.50014,675.32275 a 122.481,72.983521 0 1 1 -244.96201,0 122.481,72.983521 0 1 1 244.96201,0 z"
+       transform="matrix(0.63184819,0,0,0.63184819,147.64688,229.4547)"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#5aa02c;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 535.38086,173.52947 591.9494,98.778183 587.90879,286.66656 525.27933,268.48382 535.38086,173.52947 z"
+       id="rect2822"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2827"
+       d="m 224.25386,173.52947 -56.56854,-74.751287 4.04061,187.888377 62.62946,-18.18274 -10.10153,-94.95435 z"
+       style="fill:#5aa02c;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <g
+       id="g2847"
+       transform="matrix(-1,0,0,1,760.28771,0)"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997">
+      <g
+         id="g2875">
+        <g
+           transform="matrix(-1,0,0,1,760.94072,0)"
+           id="g2842">
+          <path
+             style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+             d="m 216.17264,272.52441 124.54463,17.14286 -30.71428,46.05731 -55.97321,-5 -37.85714,-58.20017 z"
+             id="rect2829"
+             sodipodi:nodetypes="ccccc" />
+          <path
+             style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+             d="m 283.78125,281.8125 c -1.0729,2.25444 -1.625,4.74485 -1.625,7.34375 0,10.45396 9.57158,18.90625 21.40625,18.90625 11.83467,0 21.4375,-8.45229 21.4375,-18.90625 0,-0.56884 -0.0381,-1.13143 -0.0937,-1.6875 l -41.125,-5.65625 z"
+             id="path2832" />
+          <path
+             style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+             d="m 298.0625,283.78125 c -0.13428,0.57463 -0.21875,1.16314 -0.21875,1.78125 0,4.14214 3.21136,7.5 7.15625,7.5 3.89589,0 7.07817,-3.27269 7.15625,-7.34375 l -14.09375,-1.9375 z"
+             id="path2837" />
+        </g>
+        <path
+           sodipodi:nodetypes="ccccc"
+           id="path2849"
+           d="m 216.17264,272.52441 124.54463,17.14286 -30.71428,46.05731 -55.97321,-5 -37.85714,-58.20017 z"
+           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+      </g>
+      <path
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+         d="m 283.78125,281.8125 c -1.0729,2.25444 -1.625,4.74485 -1.625,7.34375 0,10.45396 9.57158,18.90625 21.40625,18.90625 11.83467,0 21.4375,-8.45229 21.4375,-18.90625 0,-0.56884 -0.0381,-1.13143 -0.0937,-1.6875 l -41.125,-5.65625 z"
+         id="path2851" />
+      <path
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+         d="m 298.0625,283.78125 c -0.13428,0.57463 -0.21875,1.16314 -0.21875,1.78125 0,4.14214 3.21136,7.5 7.15625,7.5 3.89589,0 7.07817,-3.27269 7.15625,-7.34375 l -14.09375,-1.9375 z"
+         id="path2853" />
+    </g>
+    <g
+       id="g2882"
+       transform="translate(-5.5576477,0)"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="rect2855"
+         d="m 330.71429,388.07645 42.85714,0 -5,54.28571 -19.28571,-21.42857 -18.57143,-32.85714 z"
+         style="fill:#2d5016;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+      <path
+         style="fill:#2d5016;fill-opacity:1;fill-rule:evenodd;stroke:none"
+         d="m 438.57143,388.07645 -42.85714,0 5,54.28571 L 420,420.93359 438.57143,388.07645 z"
+         id="path2858"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path2862"
+         d="m 398.40625,417.25 1.46875,16.125 c 21.33663,6.26768 36.9375,25.9818 36.9375,49.34375 0,28.40322 -23.03428,51.40625 -51.4375,51.40625 -28.40322,0 -51.4375,-23.00303 -51.4375,-51.40625 0,-22.80853 14.84657,-42.13849 35.40625,-48.875 l 1.5,-16.28125 c -29.90027,6.62996 -52.25,33.25931 -52.25,65.15625 0,36.88473 29.89652,66.78125 66.78125,66.78125 36.88473,0 66.78125,-29.89652 66.78125,-66.78125 0,-32.41617 -23.11743,-59.39795 -53.75,-65.46875 z"
+         style="fill:#ffcc00;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    </g>
+    <path
+       transform="matrix(0.97281991,-0.23156301,0.23156301,0.97281991,0,0)"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 136.50374,616.34082 16.7403,16.894 20.63534,146.75071 -37.37564,0 0,-163.64471 z"
+       id="rect2887"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2890"
+       d="m 510.38337,567.9794 -20.19732,12.55839 -54.05651,137.98363 36.35977,8.65482 37.89406,-159.19684 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 448.76407,667.9845 -7.00859,4.35783 -18.75792,47.88112 12.61705,3.00327 13.14946,-55.24222 z"
+       id="path2892"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2894"
+       d="m 432.60163,667.9845 -7.00859,4.35783 -18.75792,47.88112 12.61705,3.00327 13.14946,-55.24222 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 353.29704,672.02511 7.00859,4.35783 18.75792,47.88112 -12.61705,3.00327 -13.14946,-55.24222 z"
+       id="path2896"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2898"
+       d="m 338.14475,671.01496 7.00859,4.35783 18.75792,47.88112 -12.61705,3.00327 -13.14946,-55.24222 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2900"
+       d="m 373.66831,668.12739 6.10279,5.5558 9.77003,50.4877 -12.9524,0.66701 -2.92042,-56.71051 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 388.61898,665.66858 5.54493,6.11266 4.90892,51.18949 -12.95695,-0.57169 2.5031,-56.73046 z"
+       id="path2902"
+       sodipodi:nodetypes="ccccc"
+       inkscape:transform-center-x="20.325093"
+       inkscape:transform-center-y="-2.16299"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 410.3572,664.67278 -5.74074,5.92915 -6.57071,51.00282 12.9687,-0.15012 -0.65725,-56.78185 z"
+       id="path2904"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 349.38259,664.8379 6.10279,-5.5558 9.77003,-50.4877 -12.9524,-0.66701 -2.92042,56.71051 z"
+       id="path2906"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2908"
+       d="m 335.81116,666.26647 6.10279,-5.5558 9.77003,-50.4877 -12.9524,-0.66701 -2.92042,56.71051 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 367.23973,664.8379 6.10279,-5.5558 9.77003,-50.4877 -12.9524,-0.66701 -2.92042,56.71051 z"
+       id="path2910"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2912"
+       d="m 391.36459,665.92665 4.43635,-6.95914 -3.78157,-51.2851 -12.67564,2.7455 12.02086,55.49874 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 404.22173,665.92665 4.43635,-6.95914 -3.78157,-51.2851 -12.67564,2.7455 12.02086,55.49874 z"
+       id="path2914"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2916"
+       d="m 417.79316,664.49808 4.43635,-6.95914 -3.78157,-51.2851 -12.67564,2.7455 12.02086,55.49874 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 434.93602,661.64094 4.43635,-6.95914 -3.78157,-51.2851 -12.67564,2.7455 12.02086,55.49874 z"
+       id="path2918"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2920"
+       d="m 440.5132,658.88294 6.66357,-4.86906 15.12973,-49.14828 -12.8061,-2.05263 -8.9872,56.06997 z"
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 331.29826,666.63908 4.28215,-7.05507 -4.90915,-51.18947 -12.61216,3.02376 13.23916,55.22078 z"
+       id="path2922"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="opacity:0.65699995000000000;fill:url(#linearGradient2958);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 352.54324,295.75793 36.36549,-13.13198 -5.05076,109.09647 -30.30458,-41.41625 -1.01015,-54.54824 z"
+       id="rect2949"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997" />
+    <path
+       style="opacity:0.65699995000000000;fill:url(#linearGradient2977);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 169.70563,292.72747 224.25387,514.96103 299.00516,769.51947 202.03051,644.26055 169.70563,292.72747 z"
+       id="rect2960"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="9.8199997"
+       inkscape:export-ydpi="9.8199997"
+       inkscape:export-filename="/home/njones/code/ld25/orc.png" />
+  </g>
+</svg>
